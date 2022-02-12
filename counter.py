@@ -1,43 +1,32 @@
-import pygame
-pygame.init()
-win = pygame.display.set_mode((500, 500))
+import posixpath
+import pygame as pg
+import random
+pg.init()
+win = pg.display.set_mode((500, 500))
+win.fill((0, 0, 0))
+class Star:
+    def __init__(self, pressed):
+        self.x = pressed[0]
+        self.y = pressed[1]
+    def draw(self, win):
+        pg.draw.circle(win,(random.choices(range(256), k=3)), (self.x, self.y), 30)
 
-x = 100
-y = 150
-y1 = 50
-x1 = 250
-dc= 0
-dv = 0
+            
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             exit()
 
-    if dc == 1:
-        x=x-1
-    elif dc == 0:
-        x = x+1
-
-    if x > 400:
-        dc += 1
-    if x <0:
-        dc -= 1
-
-    win.fill((225, 225, 225))
-    pygame.draw.rect(win, (225, 225, 0), (x, y, 100, 150))
-
-    if dv == 1:
-        y1=y1-1
-    elif dv == 0:
-        y1 = y1+1
-
-    if y1 > 450:
-        dv+=1
-    elif y1 < 50:
-        dv-=1
+    a = Star
+    pressed = pg.mouse.get_pressed()
+    if pressed[0]:
+        pos = pg.mouse.get_pos()
+        a = Star(pos)
+        a.draw(win)
+    keys = pg.key.get_pressed()
+    if keys[pg.K_SPACE]:
+        win.fill((0, 0, 0))
+    if keys[pg.K_q]:
         
-
-    pygame.draw.circle(win, (155, 225, 45), (x1, y1), 50)
-    pygame.display.update()
-
-    pygame.time.delay(5)
+    
+    pg.display.update()

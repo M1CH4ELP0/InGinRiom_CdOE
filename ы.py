@@ -1,4 +1,4 @@
-from msvcrt import LK_LOCK
+
 import pygame
 pygame.init()
 import random
