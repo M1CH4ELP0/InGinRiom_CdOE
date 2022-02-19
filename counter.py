@@ -1,4 +1,3 @@
-import posixpath
 import pygame as pg
 import random
 pg.init()
@@ -8,8 +7,14 @@ class Star:
     def __init__(self, pressed):
         self.x = pressed[0]
         self.y = pressed[1]
-    def draw(self, win):
-        pg.draw.circle(win,(random.choices(range(256), k=3)), (self.x, self.y), 30)
+        self.obj = 'rect'
+    def draw(self,win, fig):
+        self.obj = fig
+        if self.obj == 'circle':
+            pg.draw.circle(win, ((random.choices(range(0, 256), k=3))), pg.mouse.get_pos(), 30)
+        elif self.obj == 'rect':
+            pg.draw.rect(win, ((random.choices(range(256), k=3))), (self.x, self.y, 100, 150))
+    
 
             
 while True:
@@ -19,14 +24,16 @@ while True:
 
     a = Star
     pressed = pg.mouse.get_pressed()
+    keys = pg.key.get_pressed()
     if pressed[0]:
         pos = pg.mouse.get_pos()
         a = Star(pos)
-        a.draw(win)
-    keys = pg.key.get_pressed()
+        #qqqa.draw(win)
+        if keys[pg.K_w]:
+            a.draw(win,'circle')
+        if keys[pg.K_q]:
+            a.draw(win, 'rect')
     if keys[pg.K_SPACE]:
         win.fill((0, 0, 0))
-    if keys[pg.K_q]:
         
-    
     pg.display.update()
