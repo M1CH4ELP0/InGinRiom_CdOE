@@ -43,10 +43,53 @@ class Board:
                     draw_cross(screen, x, y, self.size)
                 elif self.board[y][x] == -1:
                     draw_circle(screen, x, y, self.size)
-        
-        
+    def check(self):
+        end_info = end(self.board)
+        shift = self.W //10
+        if end_info is not None:
+            type_end = end_info[0]
+            num = end_info[1]
+            if type_end == 'col':
+            elif type_end == 'line':
+            elif type_end 'diag':
+            pg.draw.line(screen, (225, 0, 0), (x0, y0), (x1, y1), 10)
+            pg.display.update()
+            pg.time.delay(3000)
+            return True
+        else:
+            return False
+def check_i_col(x, i):
+    if x[0][i] == x[1][i] == x[2][i] != 0:
+        return True
+    else:
+        return False
+def check_i_line(x, i):
+    if x[i][0] == x[i][1] == x[i][2] != 0:
+        return True
+    else:
+        return False
+def check_secondary_diag(x):
+    if x[0][0] == x[1][1] == x[2][2] != 0:
+        return True
+    else:
+        return False
+def check_main_diag(x):
+    if x[2][0] == x[1][1] == x[0][2] != 0:
+        return True
+    else:
+        return False
+def end(board):
+    for i in range(3):
+        if check_i_col(board, i):
+            return 'col' , i
+        if check_i_line(board, i):
+            return 'line'
+    if check_main_diag(board):
+        return 'diag', 1
+    if check_secondary_diag(board):
+        return 'diag', 2
+    return None
     
-
 board = Board(W, H, 200)
 while True:
     for event in pg.event.get():
@@ -58,8 +101,6 @@ while True:
     board.render(screen)
     pg.display.update()
     keys = pg.key.get_pressed()
-    if keys[pg.K_ESCAPE]:
+    if keys[pg.K_ESCAPE] or board.check():
         pg.quit()
         exit
-    
-        
