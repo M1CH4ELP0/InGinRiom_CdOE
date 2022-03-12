@@ -10,8 +10,21 @@ win = pg.display.set_mode(size)
 
 class Circle:
     def __init__(self, x, y, rad):
+        self.x = x
+        self.y = y
+        self.rad = rad
+        self.dx = random.choice([-1, -0.5, -0.25, 0.5, 1])
+        self.dy = random.choice([-1, -0.5, -0.25, 0.5, 1])
+        self.color = random.choices(range(0, 256), k=3)
     def move(self):
+        self.x += self.dx
+        self.y += self.dy
+        if self.x > W or self.x < 0:
+            self.dx = -self.dx + random.randint(-1, 1)
+        if self.y > H or self.y < 0:
+            self.dy = -self.dy + random.randint(-1, 1)
     def show(self):
+        pg.draw.circle(win, self.color, (self.x, self.y), self.rad)
 circles = []
 for i in range(100):
     circles.append(Circle(W // 2, H // 2, 50))
@@ -21,8 +34,8 @@ while True:
             exit()
     for circle in circles:
         circle.move()
-    win.fill(225, 225, 225)
+    win.fill((225, 225, 225))
     for circle in circles:
-        circle.show
+        circle.show()
     pg.display.update()
     clock.tick(fps)
