@@ -1,41 +1,40 @@
 import pygame as pg
 import random
 pg.init()
-W, H, fps = 500, 500, 120
+W, H, fps = 728, 427, 120
 size = (W, H)
 clock = pg.time.Clock()
 
 pg.init()
 win = pg.display.set_mode(size)
 
-class Circle:
-    def __init__(self, x, y, rad):
-        self.x = x
-        self.y = y
-        self.rad = rad
-        self.dx = random.choice([-1, -0.5, -0.25, 0.5, 1])
-        self.dy = random.choice([-1, -0.5, -0.25, 0.5, 1])
-        self.color = random.choices(range(0, 256), k=3)
-    def move(self):
-        self.x += self.dx
-        self.y += self.dy
-        if self.x > W or self.x < 0:
-            self.dx = -self.dx + random.randint(-1, 1)
-        if self.y > H or self.y < 0:
-            self.dy = -self.dy + random.randint(-1, 1)
-    def show(self):
-        pg.draw.circle(win, self.color, (self.x, self.y), self.rad)
-circles = []
+def load_img(name):
+    img = pg.image.load(name)
+    img = img.convert()
+    colorkey = img.get_at((0, 0))
+    img.set_colorkey(colorkey)
+    return img
+class Spr(pg.sprite.Sprite):
+    def __init__(self, *group):
+        super().__init__(*group)
+        self.image = load_img("t.jpg")
+        self.image = image = pg.transform.scale(self.image, (100, 100))
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randrange(W)
+        self.rect.y = random.randrange(H)
+    def update(self):
+        self.rect = self.rect.move(random.randrange(3) - 1, random.randrange(3) - 1)
+img1 = pg.image.load("h.jpg")
+all_sprites = pg.sprite.Group()
 for i in range(100):
-    circles.append(Circle(W // 2, H // 2, 50))
+    Spr(all_sprites)
 while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit()
-    for circle in circles:
-        circle.move()
+    all_sprites.update()
     win.fill((225, 225, 225))
-    for circle in circles:
-        circle.show()
+    win.blit(img1, (0, 0))
+    all_sprites.draw(win)
     pg.display.update()
     clock.tick(fps)
