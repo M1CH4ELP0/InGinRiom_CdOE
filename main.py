@@ -1,7 +1,7 @@
 import pygame as pg
 import random
 pg.init()
-W, H, fps = 728, 427, 120
+W, H, fps = 1920, 1080, 120
 size = (W, H)
 clock = pg.time.Clock()
 
@@ -17,8 +17,8 @@ def load_img(name):
 class Spr(pg.sprite.Sprite):
     def __init__(self, *group):
         super().__init__(*group)
-        self.image = load_img("t.jpg")
-        self.image = image = pg.transform.scale(self.image, (100, 100))
+        self.image = load_img("t.png")
+        self.image = image = pg.transform.scale(self.image, (500, 250))
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(W)
         self.rect.y = random.randrange(H)
@@ -26,7 +26,7 @@ class Spr(pg.sprite.Sprite):
         self.rect = self.rect.move(random.randrange(3) - 1, random.randrange(3) - 1)
 img1 = pg.image.load("h.jpg")
 all_sprites = pg.sprite.Group()
-for i in range(100):
+for i in range(2):
     Spr(all_sprites)
 while True:
     for event in pg.event.get():
