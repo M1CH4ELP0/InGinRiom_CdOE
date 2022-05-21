@@ -1,7 +1,6 @@
 import sqlite3
 from random import choice
 class Users:
-
     def __init__(self,file):
         self.con = sqlite3.connect(file)
         self.cur = self.con.cursor()
@@ -152,6 +151,7 @@ data_base.add_money(5,15000)
    data_base.insert(name_insert,cash_insert,year_insert)'''
 
 data_inv = Inventory('market.sqlite')
+data_usr = Users('market.sqlite')
 data_skin = Skin('market.sqlite')
 '''data_skin.insert('M4A1-S | Добро пожаловать в джунгли' , 5 , 105000 , 'Тайное' , False)
 data_skin.insert('★ Тычковые ножи | Ультрафиолет' , 3 , 7500 , 'Тайное' , False)
@@ -164,7 +164,7 @@ data_inv.Insert(2, 5)
 data_inv.Insert(3, 6)
 data_inv.Insert(4, 4)'''
 
-
-data = data_inv.get_inf()
+data = data_usr.get()
+print(data)
 for line in data:
     print(line)
