@@ -6,9 +6,9 @@ win.fill((51, 64, 43))
 W, H = 600, 600
 
 f1 = pg.font.Font(None, 36)
-text1 = f1.render('        С ДНЁМ РОЖДЕНИЯ, КАТЯ!!', 1, (98, 255, 0))
+text1 = f1.render('        С ДНЁМ РОЖДЕНИЯ, МАМА!!', 1, (41, 85, 255))
 
-dog_surf = pg.image.load('op.png')
+dog_surf = pg.image.load('io.png')
 dog_rect = dog_surf.get_rect(
     bottomright=(500, 500))
 win.blit(dog_surf, dog_rect)
